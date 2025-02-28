@@ -1,0 +1,74 @@
+{% extends 'admin/admin_index.html' %}
+{% block content %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+    .container {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        width: 80%;
+        max-width: 600px;
+        text-align: center;
+    }
+    h2 {
+        color: #333;
+        margin-bottom: 20px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+    th, td {
+        padding: 12px;
+        border: 1px solid #ddd;
+        text-align: center;
+    }
+    th {
+        background-color: #007BFF;
+        color: white;
+    }
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h2>Today's Charging Station Bookings</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Charging Station Name</th>
+                <th>Bookings Today</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for station in station_counts %}
+                <tr>
+                    <td>{{ station.name }}</td>
+                    <td>{{ station.today_bookings }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="2">No bookings done today.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

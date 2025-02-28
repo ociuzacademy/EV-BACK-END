@@ -1,0 +1,39 @@
+{% extends 'admin/admin_index.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-lg border-light" style="border-radius: 12px; padding: 20px; background-color: #f8f9fa;">
+        <div class="card-header bg-info text-white" style="border-radius: 12px; text-align: center;">
+            <h1 style="margin: 0; font-size: 1.75rem; font-weight: bold;">Charging Station: {{ ev_station.name }}</h1>
+        </div>
+        <div class="card-body" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.8;">
+            {% if ev_station.image %}
+            <div class="text-center mb-4">
+                <img src="{{ ev_station.image.url }}" alt="{{ ev_station.name }}" class="img-fluid rounded" style="max-width: 300px; border: 1px solid #ddd;">
+            </div>
+            {% endif %}
+            <p style="font-size: 1rem; color: #34495e;">
+                <strong>Address:</strong> {{ ev_station.address }}
+            </p>
+            <p style="font-size: 1rem; color: #34495e;">
+                <strong>Connectors:</strong> {{ ev_station.connectors }}
+            </p>
+            <p style="font-size: 1rem; color: #34495e;">
+                <strong>Working Hours:</strong> {{ ev_station.working_hours }}
+            </p>
+            <p style="font-size: 1rem; color: #34495e;">
+                <strong>Rate:</strong> {{ ev_station.rate_per_slot }}
+            </p>
+            <!-- <p style="font-size: 1rem; color: #34495e;">
+                <strong>Status:</strong> 
+                <span class="badge {% if service_centre.status == 'approved' %}bg-success{% elif service_centre.status == 'rejected' %}bg-danger{% else %}bg-warning{% endif %}">
+                    {{ service_centre.status }}
+                </span>
+            </p> -->
+        </div>
+        <div class="card-footer text-center" style="background-color: #e9ecef; border-radius: 12px;">
+            <a href="{% url 'approved_centres' %}" class="btn btn-info" style="font-size: 1rem; padding: 10px 20px;">Back to Ev Stations</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

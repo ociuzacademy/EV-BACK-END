@@ -1,0 +1,47 @@
+{% extends 'admin/admin_index.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-lg border-light" style="border-radius: 12px; padding: 20px; background-color: #f8f9fa;">
+        <div class="card-header bg-info text-white" style="border-radius: 12px; text-align: center;">
+            <h1 style="margin: 0; font-size: 1.75rem; font-weight: bold;">Service Centre: {{ service_centre.name }}</h1>
+        </div>
+        <div class="card-body" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.8;">
+            {% if service_centre.image %}
+            <div class="text-center mb-4">
+                <img src="{{ service_centre.image.url }}" alt="{{ service_centre.name }}" class="img-fluid rounded" style="max-width: 300px; border: 1px solid #ddd;">
+            </div>
+            {% endif %}
+            <p style="font-size: 1rem; color: #34495e;">
+                <strong>Phone:</strong> {{ service_centre.phone }}
+            </p>
+            <p style="font-size: 1rem; color: #34495e;">
+                <strong>Email:</strong> {{ service_centre.email }}
+            </p>
+            <p style="font-size: 1rem; color: #34495e;">
+                <strong>Address:</strong> {{ service_centre.address }}
+            </p>
+            <p style="font-size: 1rem; color: #34495e;">
+                <strong>Location:</strong> 
+                {% if service_centre.latitude and service_centre.longitude %}
+                    Latitude: {{ service_centre.latitude }}, Longitude: {{ service_centre.longitude }}
+                {% else %}
+                    Not Available
+                {% endif %}
+            </p>
+            <p style="font-size: 1rem; color: #34495e;">
+                <strong>Working Hours:</strong> {{ service_centre.working_hours }}
+            </p>
+            <p style="font-size: 1rem; color: #34495e;">
+                <strong>Status:</strong> 
+                <span class="badge {% if service_centre.status == 'approved' %}bg-success{% elif service_centre.status == 'rejected' %}bg-danger{% else %}bg-warning{% endif %}">
+                    {{ service_centre.status }}
+                </span>
+            </p>
+        </div>
+        <div class="card-footer text-center" style="background-color: #e9ecef; border-radius: 12px;">
+            <a href="{% url 'approved_centres' %}" class="btn btn-info" style="font-size: 1rem; padding: 10px 20px;">Back to Service Centres</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

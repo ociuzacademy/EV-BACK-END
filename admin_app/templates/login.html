@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #457c92;
+        }
+        .login_section {
+            padding: 50px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            max-width: 450px;
+            width: 100%;
+            padding: 50px;
+            background-color: #355764;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .login_main {
+            text-align: center;
+        }
+        .login_text {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #9fbad8;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .email-bt {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 25px;
+            text-indent: 10px;
+            outline: none;
+        }
+        .send_btn {
+            margin-top: 20px;
+        }
+        .send_btn a {
+            display: inline-block;
+            padding: 10px 30px;
+            font-size: 16px;
+            color: #ffffff;
+            background-color: #457c92;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: background-color 0.3s ease;
+        }
+        .send_btn a:hover {
+            background-color: #ec971f;
+        }
+    </style>
+</head>
+<body>
+    <div class="login_section layout_padding">
+        <div class="container">
+            <div class="login_main">
+                <h1 class="login_text">Login</h1>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" class="email-bt" placeholder="Username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="email-bt" placeholder="Password" name="password" required>
+                    </div>
+                </form>
+                <div class="send_btn"><a href="{% url 'login' %}" onclick="document.forms[0].submit(); return false;">LOGIN</a></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

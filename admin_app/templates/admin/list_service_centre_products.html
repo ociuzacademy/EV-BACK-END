@@ -1,0 +1,133 @@
+{% extends 'admin/admin_index.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4 text-center" style="font-family: 'Arial', sans-serif; font-weight: bold; color: #2c3e50;">Products Sold by {{ service_centre.name }}</h1>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+            <thead class="bg-info text-white text-center">
+                <tr>
+                    <th>Image</th>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td class="text-center">
+                        <img src="{{ product.image.url }}" alt="{{ product.name }} Image" style="height: 80px; width: auto; object-fit: cover; border: 1px solid #ddd; border-radius: 5px;">
+                    </td>
+                    <td class="align-middle text-center">{{ product.name }}</td>
+                    <td class="align-middle text-center">₹{{ product.price }}</td>
+                    <td class="align-middle text-center">{{ product.description }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center">No products available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="{% url 'list_service_centres' %}" class="btn btn-secondary">Back to Service Centres</a>
+    </div>
+</div>
+
+<!-- Custom CSS for Styling -->
+<style>
+    /* General Styles */
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: #f4f7f6;
+        color: #333;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: #2c3e50;
+    }
+
+    /* Table Styles */
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    .table thead {
+        background-color: #17a2b8; /* Info color */
+        color: #fff;
+    }
+
+    .table th,
+    .table td {
+        padding: 12px;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .table tbody tr {
+        transition: background-color 0.3s ease;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f8f9fa; /* Light gray on hover */
+    }
+
+    .table img {
+        height: 80px;
+        width: auto;
+        object-fit: cover;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    /* Button Styles */
+    .btn {
+        padding: 10px 20px;
+        font-size: 1rem;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+        color: #fff;
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+        border-color: #545b62;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+        h1 {
+            font-size: 2rem;
+        }
+
+        .table th,
+        .table td {
+            padding: 8px;
+        }
+
+        .table img {
+            height: 60px;
+        }
+    }
+</style>
+{% endblock %}

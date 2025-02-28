@@ -1,0 +1,54 @@
+{% extends 'index.html' %}
+
+{% block content %}
+   <div class="container mt-5">
+      <div class="card">
+         <div class="card-header bg-primary text-white">
+            <h3>Employee Details</h3>
+         </div>
+         <div class="card-body">
+            <h4 class="card-title">{{ employee.name }}</h4>
+            <p class="card-text">
+               <strong>Position:</strong> {{ employee.position }}<br>
+               <strong>Email:</strong> <a href="mailto:{{ employee.email }}">{{ employee.email }}</a><br>
+               <strong>Phone:</strong> <a href="tel:{{ employee.phone }}">{{ employee.phone }}</a><br>
+            </p>
+            <div class="text-center mt-3">
+               <a href="{% url 'list_service_centre_employees' employee.service_centre.id %}" class="btn btn-secondary">Back to Employees</a>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <style>
+      .container {
+         max-width: 800px;
+         margin-top: 20px;
+      }
+
+      .card {
+         border-radius: 10px;
+         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .card-header {
+         text-align: center;
+         border-radius: 10px 10px 0 0;
+      }
+
+      .card-body {
+         font-size: 1.1rem;
+         line-height: 1.6;
+      }
+
+      .card-text {
+         margin-bottom: 20px;
+      }
+
+      .btn {
+         border-radius: 5px;
+         font-size: 1rem;
+         padding: 10px 20px;
+      }
+   </style>
+{% endblock %}

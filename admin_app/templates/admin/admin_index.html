@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <title>EV Care - Admin Dashboard</title>
+   <!-- Basic Meta Tags -->
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+   <!-- Site Meta -->
+   <meta name="keywords" content="">
+   <meta name="description" content="">
+   <meta name="author" content="">
+
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+
+   <!-- Font Awesome for Icons -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+   <!-- Custom CSS -->
+   <style>
+      /* General Styles */
+      body {
+         font-family: 'Poppins', sans-serif;
+         background: #f4f7f6;
+         color: #333;
+      }
+
+      .wrapper {
+         display: flex;
+         width: 100%;
+         align-items: stretch;
+      }
+
+      /* Sidebar Styles */
+      #sidebar {
+         min-width: 250px;
+         max-width: 250px;
+         background: #343a40;
+         color: #fff;
+         transition: all 0.3s;
+         min-height: 100vh;
+      }
+
+      #sidebar.active {
+         margin-left: -250px;
+      }
+
+      #sidebar .sidebar-header {
+         padding: 20px;
+         background: #2c3e50;
+         text-align: center;
+      }
+
+      #sidebar ul.components {
+         padding: 20px 0;
+      }
+
+      #sidebar ul li a {
+         padding: 10px 20px;
+         font-size: 1.1em;
+         display: block;
+         color: #fff;
+         text-decoration: none;
+      }
+
+      #sidebar ul li a:hover {
+         background: #4a5568;
+      }
+
+      #sidebar ul li.active > a {
+         background: #4a5568;
+      }
+
+      #sidebar ul li a i {
+         margin-right: 10px;
+      }
+
+      /* Dropdown Styles */
+      #sidebar ul li a[aria-expanded="true"] {
+         background: #4a5568;
+      }
+
+      #sidebar ul ul a {
+         padding-left: 30px;
+         background: #2c3e50;
+      }
+
+      /* Content Styles */
+      #content {
+         width: 100%;
+         padding: 20px;
+         min-height: 100vh;
+         transition: all 0.3s;
+      }
+
+      /* Navbar Styles */
+      .navbar {
+         padding: 15px 10px;
+         background: #fff;
+         border: none;
+         border-radius: 0;
+         margin-bottom: 40px;
+         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .navbar-btn {
+         box-shadow: none;
+         outline: none !important;
+         border: none;
+         background: none;
+      }
+
+      .navbar-btn i {
+         font-size: 1.5rem;
+         color: #333;
+      }
+
+      /* Card Styles */
+      .card {
+         border: none;
+         border-radius: 10px;
+         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+         transition: all 0.3s;
+      }
+
+      .card:hover {
+         transform: translateY(-5px);
+         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      }
+
+      .card-body {
+         padding: 20px;
+      }
+
+      .card-title {
+         font-size: 1.25rem;
+         font-weight: 700;
+         margin-bottom: 10px;
+      }
+
+      .card-text {
+         font-size: 0.9rem;
+         color: #666;
+      }
+
+      /* Button Styles */
+      .btn-primary {
+         background-color: #007bff;
+         border: none;
+         padding: 10px 20px;
+         border-radius: 5px;
+         font-size: 0.9rem;
+         color: #fff; /* White text */
+      }
+
+      .btn-primary:hover {
+         background-color: #0056b3;
+         color: #fff; /* White text on hover */
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 768px) {
+         #sidebar {
+            margin-left: -250px;
+         }
+
+         #sidebar.active {
+            margin-left: 0;
+         }
+
+         #content {
+            width: 100%;
+         }
+
+         #content.active {
+            width: calc(100% - 250px);
+         }
+      }
+   </style>
+</head>
+
+<body>
+   <!-- Wrapper -->
+   <div class="wrapper">
+      <!-- Sidebar -->
+      <nav id="sidebar">
+         <div class="sidebar-header">
+            <h3>EVCare Admin</h3>
+         </div>
+
+         <ul class="list-unstyled components">
+            <li class="active">
+               <a href="{% url 'admin_index' %}"><i class="fas fa-home"></i> Home</a>
+            </li>
+            <li>
+                <a href="#serviceCentreSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                   <i class="fas fa-cogs"></i> Service Centres
+                </a>
+                <ul class="collapse list-unstyled" id="serviceCentreSubmenu">
+                   <li>
+                      <a href="{% url 'approved_centres' %}">List Service Centres</a>
+                   </li>
+                   <li>
+                      <a href="{% url 'rejected_centres' %}">View Rejected Service Centres</a>
+                   </li>
+                </ul>
+             </li>
+            <li>
+               <a href="#evStationSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-charging-station"></i> EV Station</a>
+               <ul class="collapse list-unstyled" id="evStationSubmenu">
+                  <li>
+                     <a href="{% url 'list_ev_stations' %}">List Station</a>
+                  </li>
+                  <li>
+                     <a href="{% url 'station_booking_count' %}">Station Bookings</a>
+                  </li>
+                  <!-- <li>
+                     <a href="#">Option 3</a>
+                  </li> -->
+               </ul>
+            </li>
+            <li>
+               <a href="{% url 'login' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </li>
+         </ul>
+      </nav>
+      <!-- Page Content -->
+      <div id="content">
+         <!-- Top Navbar -->
+         <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+               <button type="button" id="sidebarCollapse" class="navbar-btn">
+                  <i class="fas fa-bars"></i> <!-- Burger Menu Icon -->
+               </button>
+            </div>
+         </nav>
+         {% block content %}
+         <!-- Main Content -->
+         <div class="container-fluid">
+            <h2>Welcome to EVCare Admin Dashboard</h2>
+            <div class="row">
+               <div class="col-md-4">
+                  <div class="card">
+                     <div class="card-body">
+                        <h5 class="card-title">Service Centres</h5>
+                        <p class="card-text">Manage all service centres efficiently.</p>
+                        <a href="{% url 'list_service_centres' %}" class="btn btn-primary">Go to Service Centres</a>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-4">
+                  <div class="card">
+                     <div class="card-body">
+                        <h5 class="card-title">EV Stations</h5>
+                        <p class="card-text">Add and manage EV stations.</p>
+                        <a href="{% url 'add_station' %}" class="btn btn-primary">Add EV Station</a>
+                     </div>
+                  </div>
+               </div>
+               <!-- <div class="col-md-4">
+                  <div class="card">
+                     <div class="card-body">
+                        <h5 class="card-title">Reports</h5>
+                        <p class="card-text">View and analyze reports.</p>
+                        <a href="#" class="btn btn-primary">View Reports</a>
+                     </div>
+                  </div>
+               </div> -->
+            </div>
+         </div>
+      </div>
+   </div>
+   {% endblock %}
+   <!-- Bootstrap JS, jQuery, and Popper.js -->
+   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+   <script src="/static/js/bootstrap.min.js"></script>
+
+   <!-- Custom Script for Sidebar Toggle -->
+   <script>
+      $(document).ready(function () {
+         $('#sidebarCollapse').on('click', function () {
+            $('#sidebar').toggleClass('active');
+         });
+      });
+      
+   </script>
+
+</body>
+</html>
