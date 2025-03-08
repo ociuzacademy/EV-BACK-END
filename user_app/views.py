@@ -108,7 +108,7 @@ class RegisterVehicleView(viewsets.ModelViewSet):
 
 
 class ListServiceCentresView(viewsets.ModelViewSet):
-    queryset = Service_Centre.objects.all()
+    queryset = Service_Centre.objects.filter(status="approved")
     serializer_class = list_service_centre
     
     def list(self, request, *args, **kwargs):
