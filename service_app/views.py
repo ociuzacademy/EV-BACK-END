@@ -151,6 +151,53 @@ class UpdateEmployeeView(generics.UpdateAPIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
         
+
+class UpdateServiceCentreView(generics.UpdateAPIView):
+    queryset = Service_Centre.objects.all()
+    serializer_class = ServiceCentreRegisterSerializer
+    http_method_names = ['patch']
+
+    def patch(self, request, *args, **kwargs):
+        """
+        Handles partial updates to a Service Centre object.
+        """
+        service_id = request.data.get('id')
+        try:
+            service_centre = Service_Centre.objects.get(id=service_id)  
+        except Service_Centre.DoesNotExist:
+            return Response(
+                {"status": "failed", "message": "Service centre not found"},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        # Ensure the image is correctly retrieved from request.FILES
+        data = request.data.copy()  # Make a mutable copy of request data
+        if 'image' in request.FILES:
+            data['image'] = request.FILES['image']
+
+        serializer = ServiceCentreRegisterSerializer(service_centre, data=data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                {
+                    "status": "success",
+                    "message": "Service centre updated successfully",
+                    "data": serializer.data,
+                },
+                status=status.HTTP_200_OK
+            )
+        else:
+            return Response(
+                {
+                    "status": "failed",
+                    "message": "Invalid Details",
+                    "errors": serializer.errors,
+                },
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+
 from rest_framework.parsers import MultiPartParser, FormParser
 
 class AddProducts(viewsets.ModelViewSet):

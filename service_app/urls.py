@@ -50,6 +50,7 @@ urlpatterns = [
     path('update_employee/',UpdateEmployeeView.as_view(),name='update_employee'),
     path('view_products/',ViewProducts.as_view({'get':'list'}),name='view_products'),
     path('update_product/',UpdateProductView.as_view(),name='update_product'),
+    path('update_service_centre/',UpdateServiceCentreView.as_view(),name='update_service_centre'),
     path('view_single_product/',ViewSingleProductView.as_view({'get':'list'}),name='view_single_product'),
     path('view_purchased_products/',ViewPurchsedProducts.as_view({'get':'list'}),name='view_purchased_products'),
     path('view_repair_requests/',ViewRepairRequestView.as_view({'get':'list'}),name='view_repair_requests'),

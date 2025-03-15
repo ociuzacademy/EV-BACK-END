@@ -74,6 +74,7 @@ class UserUpdateStatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = Repair
         fields = ['status']
+        
 
 class UserFeedbackSerializer(serializers.ModelSerializer):
     class Meta:

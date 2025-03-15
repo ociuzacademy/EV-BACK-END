@@ -21,7 +21,21 @@ class ServiceCentreRegisterSerializer(serializers.ModelSerializer):
             return f"/media/{obj.image.name}"
         return None
 
+class ServiceCentreRegisterSerializer(serializers.ModelSerializer):
+    image = serializers.ImageField(required=False)  # Make image optional
 
+    class Meta:
+        model = Service_Centre
+        fields = [
+            'name', 'username', 'address', 'phone', 'email', 
+            'password', 'latitude', 'longitude', 'utype', 'image'
+        ]
+
+    def update(self, instance, validated_data):
+        # Preserve existing image if not provided
+        if 'image' not in validated_data:
+            validated_data['image'] = instance.image  
+        return super().update(instance, validated_data)
 # class LoginSerializer(serializers.ModelSerializer):
 #     class Meta:
 #         model = Service_Centre
