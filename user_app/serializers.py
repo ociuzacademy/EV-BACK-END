@@ -20,10 +20,14 @@ class VehicleSerializer(serializers.ModelSerializer):
         fields = '__all__'
     
 class list_service_centre(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
     class Meta:
         model = Service_Centre
         fields = '__all__'
-
+    def get_image(self, obj):
+            if obj.image:
+                return f"/media/{obj.image.name}"
+            return None
 
 class UserProductSerializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField()
